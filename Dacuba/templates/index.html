@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Computing Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Grade Computing Tool</h1>
+        <form method="POST" action="/">
+            <label for="prelim_grade">Please Enter Your Preliminary Grade (0-100):</label>
+            <input type="text" id="prelim_grade" name="prelim_grade" placeholder="Prelim Grade" required>
+            <button type="submit">Compute</button>
+        </form>
+
+        <!-- Error Message -->
+        {% if error %}
+            <div class="error">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+
+        <!-- Result Section -->
+        {% if required_grade is not none %}
+            <div class="result">
+                <!-- Check if required_grade is a string (error message) -->
+                {% if required_grade is string and "Error" in required_grade %}
+                    <p class="error">{{ required_grade }}</p>
+                {% else %}
+                    <h2>Results:</h2>
+                    <h3>In order to pass, your required Midterm and Final Grades should be:&nbsp;{{ required_grade }}</h3>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
